@@ -537,6 +537,3 @@ def getpop(net, RateEqns: list, p_ox, p_sq, p_L1, p_H1, p_L2, p_H2):
                     print('Oops! Have to try another initial guess...')
     return pop
 
-
-
-
