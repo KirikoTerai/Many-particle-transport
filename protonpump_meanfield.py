@@ -322,4 +322,3 @@ def getpop(net, RateEqns: list, pop_init):
                     success3 = False
                     # print('Oops! Have to try another initial guess...')
     return pop
-
