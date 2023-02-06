@@ -223,8 +223,6 @@ Z2 = getPumpFlux_k12kp_MEK_Matrix(X, Y)
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif', size=16)
 
-# color_levels = np.arange(-2*10**(-3), 0+2*10**(-3)/10, 10)
-color_levels = np.linspace(-2*10**(-3), 0, 10)
 color_levels = [-2*10**(-3), -8*10**(-4), -4*10**(-4), -2*10**(-4), -8*10**(-5), -4*10**(-5), -8*10**(-6), -4*10**(-6), 0]
 
 
