@@ -73,14 +73,14 @@ def getPumpFlux_k12kp_Jiang(x, y):     # x: kappa_12, y: kp
         # Construct rate equation
         # Different pop gives different rate constants so this process is inside the while loop
         def rateEquations(pop):
-            eq_H1 = get_RateEquation_H1(net, H1, H2, E3, kappa_11, kappa_12, kp, energy_H1_o, energy_H2_o, pop, eps, Vm)
-            eq_H2 = get_RateEquation_H2(net, H1, H2, kappa_22, kappa_12, energy_H1_o, energy_H2_o, pop, eps, Vm)
-            eq_E3 = get_RateEquation_E3(net, H1, E3, kappa_33, kp, energy_E3_o, pop, eps, Vm)
+            eq_H1 = get_RateEquation_H1_1(net, H1, H2, E3, kappa_11, kappa_12, kp, energy_H1_o, energy_H2_o, pop, eps, Vm)
+            eq_H2 = get_RateEquation_H2_1(net, H1, H2, kappa_22, kappa_12, energy_H1_o, energy_H2_o, pop, eps, Vm)
+            eq_E3 = get_RateEquation_E3_1(net, H1, E3, kappa_33, kp, energy_E3_o, pop, eps, Vm)
 
             return (eq_H1, eq_H2, eq_E3)
 
         # Do the mean-field calculation! Find pop_new based on your pop_old
-        pop_new = getpop(net, rateEquations, pop)
+        pop_new = getpop_1(net, rateEquations, pop)
         #print('new pop =', pop_new)
 
         # Check how different pop_new is from your old pop
@@ -93,10 +93,10 @@ def getPumpFlux_k12kp_Jiang(x, y):     # x: kappa_12, y: kp
         tolerance = 10**(-20)
         N = 4
         if std < tolerance:    # Percentage deviation is smaller than given tolerance
-            Jpump = getPumpFlux(net, H2, kappa_22, energy_H2_o, pop_new, eps, Vm)
-            Jelec = getElectronFlux(net, E3, kappa_33, energy_E3_o, pop_new, eps, Vm)
-            Jprod = getProductFlux(net, H1, E3, kp, pop_new)
-            Jup = getUpFlux(net, H1, kappa_11, energy_H1_o, pop_new, eps, Vm)
+            Jpump = getPumpFlux_1(net, H2, kappa_22, energy_H2_o, pop_new, eps, Vm)
+            Jelec = getElectronFlux_1(net, E3, kappa_33, energy_E3_o, pop_new, eps, Vm)
+            Jprod = getProductFlux_1(net, H1, E3, kp, pop_new)
+            Jup = getUpFlux_1(net, H1, kappa_11, energy_H1_o, pop_new, eps, Vm)
             #if abs((Jup-Jpump)-Jelec) < 10**(-5) and abs(Jelec - Jprod) < 10**(-5) and abs(Jpump) < 35 and abs(Jelec) < 2000:
             if len(std_data) < 5:
                 pop = pop_new
@@ -114,10 +114,10 @@ def getPumpFlux_k12kp_Jiang(x, y):     # x: kappa_12, y: kp
             # print('pop_new != pop, Another iteration...')
             pop = pop_new
 
-    Jpump = getPumpFlux(net, H2, kappa_22, energy_H2_o, pop_new, eps, Vm)
-    Jelec = getElectronFlux(net, E3, kappa_33, energy_E3_o, pop_new, eps, Vm)
-    Jprod = getProductFlux(net, H1, E3, kp, pop_new)
-    Jup = getUpFlux(net, H1, kappa_11, energy_H1_o, pop_new, eps, Vm)
+    Jpump = getPumpFlux_1(net, H2, kappa_22, energy_H2_o, pop_new, eps, Vm)
+    Jelec = getElectronFlux_1(net, E3, kappa_33, energy_E3_o, pop_new, eps, Vm)
+    Jprod = getProductFlux_1(net, H1, E3, kp, pop_new)
+    Jup = getUpFlux_1(net, H1, kappa_11, energy_H1_o, pop_new, eps, Vm)
 
     # print('Jpump=', Jpump)
     # print('Jelec=', Jelec)
@@ -231,7 +231,6 @@ color_levels = [-2*10**(-3), -8*10**(-4), -4*10**(-4), -2*10**(-4), -8*10**(-5),
 fig, [ax1, ax2] = plt.subplots(nrows=1, ncols=2, figsize=(8.5, 5))
 
 ## Jiang et al approach plots ###
-# jiang = ax1.contourf(X, Y, Z1, cmap='PuOr_r', levels=color_levels, norm=colors.SymLogNorm(linthresh=10**(-5), linscale=10**(-5)))
 jiang = ax1.contourf(X, Y, Z1, cmap='Blues_r', levels=color_levels, norm=colors.SymLogNorm(linthresh=10**(-6), linscale=10**(-6)))
 ax1.set_xscale('log')
 ax1.set_yscale('log')
@@ -239,7 +238,6 @@ ax1.set_xlabel('$\kappa_{12}$ (sec$^{-1})$')
 ax1.set_ylabel('$k_{p}$ (sec$^{-1})$')
 
 ## MEK plots ##
-# mek = ax2.contourf(X, Y, Z2, cmap='PuOr_r', levels=color_levels, norm=colors.SymLogNorm(linthresh=10**(-5), linscale=10**(-5)))
 mek = ax2.contourf(X, Y, Z2, cmap='Blues_r', levels=color_levels, norm=colors.SymLogNorm(linthresh=10**(-6), linscale=10**(-6)))
 ax2.set_xscale('log')
 ax2.set_yscale('log') 
