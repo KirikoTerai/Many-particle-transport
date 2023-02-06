@@ -86,7 +86,7 @@ def get_Rate_CytE3(net, E3: Cofactor, kappa_33: float, energy_E3_o: float, pop: 
 
 #kp is constantly 10**5? No backward rate?
 
-def get_RateEquation_H1(net, H1: Cofactor, H2: Cofactor, E3: Cofactor, kappa_11: float, kappa_12: float, kp: float, energy_H1_o: float, energy_H2_o: float, pop: np.array, eps: np.array, Vm: float):
+def get_RateEquation_H1_1(net, H1: Cofactor, H2: Cofactor, E3: Cofactor, kappa_11: float, kappa_12: float, kp: float, energy_H1_o: float, energy_H2_o: float, pop: np.array, eps: np.array, Vm: float):
     cof_H1_id = net.cofactor2id[H1]
     cof_H2_id = net.cofactor2id[H2]
     cof_E3_id = net.cofactor2id[E3]
@@ -101,7 +101,7 @@ def get_RateEquation_H1(net, H1: Cofactor, H2: Cofactor, E3: Cofactor, kappa_11:
 
     return J_H1
 
-def get_RateEquation_H2(net, H1: Cofactor, H2: Cofactor, kappa_22: float, kappa_12: float, energy_H1_o: float, energy_H2_o: float, pop: np.array, eps: np.array, Vm: float):
+def get_RateEquation_H2_1(net, H1: Cofactor, H2: Cofactor, kappa_22: float, kappa_12: float, energy_H1_o: float, energy_H2_o: float, pop: np.array, eps: np.array, Vm: float):
     cof_H1_id = net.cofactor2id[H1]
     cof_H2_id = net.cofactor2id[H2]
     ### Rate constants ###
@@ -114,7 +114,7 @@ def get_RateEquation_H2(net, H1: Cofactor, H2: Cofactor, kappa_22: float, kappa_
 
     return J_H2
 
-def get_RateEquation_E3(net, H1: Cofactor, E3: Cofactor, kappa_33: float, kp: float, energy_E3_o: float, pop: np.array, eps: np.array, Vm: float):
+def get_RateEquation_E3_1(net, H1: Cofactor, E3: Cofactor, kappa_33: float, kp: float, energy_E3_o: float, pop: np.array, eps: np.array, Vm: float):
     cof_H1_id = net.cofactor2id[H1]
     cof_E3_id = net.cofactor2id[E3]
     ### Rate constants ###
@@ -126,7 +126,7 @@ def get_RateEquation_E3(net, H1: Cofactor, E3: Cofactor, kappa_33: float, kp: fl
 
     return J_E3
 
-def getPumpFlux(net, H2: Cofactor, kappa_22: float, energy_H2_o: float, pop: list, eps: np.array, Vm: float):
+def getPumpFlux_1(net, H2: Cofactor, kappa_22: float, energy_H2_o: float, pop: list, eps: np.array, Vm: float):
     cof_H2_id = net.cofactor2id[H2]
     p_H2 = pop[cof_H2_id]
     kout = get_Rate_PH2(net, H2, kappa_22, energy_H2_o, pop, eps, Vm)[1]     # H2 -> P-side
@@ -136,7 +136,7 @@ def getPumpFlux(net, H2: Cofactor, kappa_22: float, energy_H2_o: float, pop: lis
 
     return flux  
 
-def getElectronFlux(net, E3: Cofactor, kappa_33: float, energy_E3_o: float, pop: list, eps: np.array, Vm: float):
+def getElectronFlux_1(net, E3: Cofactor, kappa_33: float, energy_E3_o: float, pop: list, eps: np.array, Vm: float):
     cof_E3_id = net.cofactor2id[E3]
     p_E3 = pop[cof_E3_id]
     kout = get_Rate_CytE3(net, E3, kappa_33, energy_E3_o, pop, eps, Vm)[1]    # E3 -> CytC
@@ -145,7 +145,7 @@ def getElectronFlux(net, E3: Cofactor, kappa_33: float, energy_E3_o: float, pop:
 
     return flux  
 
-def getUpFlux(net, H1: Cofactor, kappa_11: float, energy_H1_o: float, pop: list, eps: np.array, Vm: float):
+def getUpFlux_1(net, H1: Cofactor, kappa_11: float, energy_H1_o: float, pop: list, eps: np.array, Vm: float):
     cof_H1_id = net.cofactor2id[H1]
     p_H1 = pop[cof_H1_id]
     kout = get_Rate_NH1(net, H1, kappa_11, energy_H1_o, pop, eps, Vm)[1]    # H1 -> N-side
@@ -154,7 +154,7 @@ def getUpFlux(net, H1: Cofactor, kappa_11: float, energy_H1_o: float, pop: list,
 
     return flux  
 
-def getProductFlux(net, H1: Cofactor, E3: Cofactor, kp: float, pop: list):
+def getProductFlux_1(net, H1: Cofactor, E3: Cofactor, kp: float, pop: list):
     cof_H1_id = net.cofactor2id[H1]
     cof_E3_id = net.cofactor2id[E3]
     p_H1 = pop[cof_H1_id]
@@ -187,7 +187,7 @@ def getProbabilityVector(net):
     # print(init_prob_list)
     return init_prob_list
 
-def getpop(net, RateEqns: list, pop_init):
+def getpop_1(net, RateEqns: list, pop_init):
     # Numerically solve set of non-linear equations
     # Core part of the mean-field model calculation!!
     pop = []    # pop = [P_H1, P_H2, P_E3]
@@ -244,4 +244,5 @@ def getpop(net, RateEqns: list, pop_init):
                     success3 = False
                     # print('Oops! Have to try another initial guess...')
     return pop
+
 
