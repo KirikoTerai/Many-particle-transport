@@ -248,7 +248,6 @@ plt.rc('font', family='serif', size=16)
 color_levels = np.arange(-80, 20+10,10)
 
 fig, [ax1, ax2] = plt.subplots(nrows=1, ncols=2, figsize=(8.5, 5))
-cmaps = ['RdBu_r']
 
 ## MEK plots ###
 mek = ax1.contourf(X, Y, Z2, cmap='RdBu_r', levels=color_levels, norm=colors.SymLogNorm(linthresh=2.0, linscale=1.0))
