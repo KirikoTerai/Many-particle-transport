@@ -1,4 +1,4 @@
-from MEK_public import *
+from MEK_EB import *
 from EB_meanfield import *
 
 import numpy as np
